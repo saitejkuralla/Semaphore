@@ -18,7 +18,14 @@ lock (lockObject)
 }
 ```
 
-:sparkles: <b>Real world scenario:</b> The bus company's online booking system uses a lock statement to create a mutual exclusion lock on seat objects. This ensures that only one thread can access the seat at a time and prevents race conditions when multiple customers try to book the same seat simultaneously. This ensures that the booking process is properly processed without conflicts.
+:sparkles: <b>Scenario: Bus Reservation System using Lock</b> <br>
+* In the Bus Reservation System, the `lock` keyword is used to protect the `AvailableTickets` variable from being accessed simultaneously by multiple threads. The lock keyword allows only one thread at a time to execute the critical section of code that accesses the AvailableTickets variable, ensuring that no two threads can access it at the same time.
+* Here how it works:
+  1. The program creates a BusReservation class with a private lockObject field.
+  2. The BusReservation class has a BookTicket method that takes a name and the number of wanted tickets as arguments, and checks if the desired number of tickets is available. If so, it subtracts that number from the AvailableTickets field; if not, it outputs a message indicating that no tickets are available.
+  3. The BusReservation class also has a TicketBooking method that gets the current thread name and calls the BookTicket method with the appropriate number of tickets based on the thread name.
+  4. In the Main method, three threads are created and started, each with a different name: "User1", "User2", and "User3". Each thread calls the TicketBooking method of the BusReservation object.
+  5. The lock statement is used inside the BookTicket method to ensure that only one thread at a time can access the AvailableTickets field and update it. This prevents race conditions and ensures that the ticket booking is thread-safe.
 
 
 ### Monitor Class :eyes:
@@ -50,7 +57,14 @@ finally {
 // Signal another waiting thread to continue
 Monitor.Pulse(lockObject);
 ```
-:sparkles: <b>Real world scenario:</b> A bank account class is implemented in C# using Monitors to synchronize the deposit and withdrawal operations. The Monitor.Enter method locks the object and Monitor.Wait method blocks the thread until a deposit is made. Once a deposit is made, Monitor.Pulse signals the waiting thread to execute. This ensures that the balance remains accurate and prevents race conditions between multiple threads accessing the same account object.<br>
+:sparkles: <b>Scenario: To synchronize access to a shared bank account using Monitor</b> <br>
+* Defined a BankAccount class with two methods, Deposit() and Withdraw(), to update the balance of the account. The methods use a Monitor to ensure that only one thread can access the account balance at a time.
+* Here how it works:
+    1. The `Deposit()` method takes an integer amount and adds it to the balance. It then sends a notification to any waiting threads by calling the `Monitor.Pulse()` method.
+    2. The `Withdraw()` method takes an integer amount and subtracts it from the balance. If the balance is too low to withdraw the requested amount, the thread waits for a deposit notification by calling the `Monitor.Wait()` method.
+    3. In the Main method, we create two threads: one to withdraw $50 and another to deposit $100. Both threads access the same BankAccount object, which is protected by a Monitor.
+    4. When the threads are started, the `Withdraw()` thread is blocked because the balance is less than the requested amount. The `Deposit()` thread deposits $100 and sends a notification to the waiting thread, allowing the `Withdraw()` thread to complete the withdrawal and update the balance.
+    5. The output shows the state of the account balance during the transaction. The program terminates after the threads complete their operations.
 
 
 ### Semaphore class :traffic_light:
@@ -74,15 +88,20 @@ try {
     semaphore.Release();
 }
 ```
-:sparkles: <b>Real world scenario:</b> A bank with multiple ATMs can use a semaphore to limit the number of customers accessing the ATMs at the same time. This helps to ensure that the ATMs are not overloaded and that all customers have a fair chance to access them. By using semaphores, the bank can easily adjust the maximum number of customers allowed to use the ATMs simultaneously, depending on the time of day, day of the week, or other factors that may affect the customer traffic.
+:sparkles: <b>Scenario: To limit number of customers  who can access the ATM machines at a time</b> <br>
+* The program uses a Semaphore object to control access to the ATMs, allowing a maximum of three customers to use them at a time.
+* Here how it works:
+  1. The program creates ten threads, each representing a customer, and assigns them to use the ATMs. The Semaphore object ensures that no more than three customers can access the ATMs simultaneously, by using its `WaitOne()` and `Release()` methods to acquire and release slots.
+  2. When a customer thread starts, it tries to acquire a slot from the Semaphore object by calling `WaitOne()`. If all three slots are already taken, the thread will wait until one becomes available. Once the slot is acquired, the thread will simulate the customer using the ATM by sleeping for two seconds, and then release the slot by calling `Release()`.
+  3. The program ensures that all customer threads finish using the ATMs before it terminates, by calling the `Join()` method on each thread. Finally, the program outputs a message indicating that all customers have finished using the ATMs, and waits for user input before exiting.
 
 
 ### SemaphoreSlim class :vertical_traffic_light:
 
 * SemaphoreSlim is a lightweight alternative to Semaphore class with less overhead
 * It allows a limited number of threads to enter a critical section simultaneously
-* WaitAsync method blocks a thread until the semaphore's count becomes greater than zero
-* Release method increments the semaphore's count and wakes up one blocked thread
+* `WaitAsync` method blocks a thread until the semaphore's count becomes greater than zero
+* `Release` method increments the semaphore's count and wakes up one blocked thread
 * It is useful for limiting the number of concurrent operations, such as limiting the number of database connections or HTTP requests
 * It helps avoid deadlocks that can occur when multiple threads are waiting for each other to release a resource.
 
@@ -102,4 +121,46 @@ try {
 }
 ```
 
-:sparkles: <b>Real world scenario:</b> A SemaphoreSlim is used in the program to limit the maximum number of credit card processing tasks that can be executed simultaneously. This helps to prevent overloading the system and ensures that all tasks are processed efficiently. The program generates a list of credit cards and processes them using async tasks. The semaphore is set to allow a maximum of any number of tasks to execute concurrently. The program uses await/async keywords to allow the tasks to execute asynchronously, and the SemaphoreSlim class to synchronize the access to the shared resources.
+:sparkles: <b>Scenario: Limiting Concurrent Credit Card Processing Tasks</b><br>
+* In this example, we'll use SemaphoreSlim to limit the number of concurrent credit card processing tasks that can be executed at once. This helps prevent overloading the system and ensures that all tasks are processed efficiently.
+* Here's how it works:
+  1. The main thread generates a list of 15 credit cards to be processed.
+  2. The `ProcessCreditCards()` method is called to process the credit cards concurrently.
+  3. In `ProcessCreditCards()`, a list of asynchronous tasks is created using creditCards.Select().
+  4. Each task acquires a semaphore slot by calling `WaitAsync()`, then calls the `ProcessCard()` method to process the credit card, and finally releases the semaphore slot by calling `Release()`.
+  5. The `Task.WhenAll()` method is used to wait for all tasks to complete before displaying the elapsed time.
+  6. The `ProcessCard()` method is a simple delay task that simulates processing a credit card by waiting for 1 second.
+  7. The output displays each credit card number as it is processed and the total time taken to process all credit cards.
+  <br>
+:sparkles: <b>Scenario:Limiting Concurrent Database Connections</b><br>
+* In this example, we'll use SemaphoreSlim to limit the number of concurrent database connections that can be established at once. This helps prevent overloading the database server and ensures that all queries are executed efficiently.
+* Here's how it works:
+  1. The semaphore is created with an initial count of 5, which means up to 5 tasks can acquire it simultaneously.
+  2. When a task calls  WaitAsync()`, it waits until there is a free connection available.
+  3. Once a connection is acquired, the task executes the SQL query, releases the connection with `Release()`, and then exits.
+  4. The code uses `Task.WhenAll()` to execute multiple tasks concurrently and wait for them to complete before displaying the results.
+  5. Finally, the elapsed time is displayed using a Stopwatch object.
+  
+:question: <b>Now we may get a doubt that when to use these methods in which scenarios?</b> :exploding_head:
+<br>So here are some common scenarios where each synchronization method is commonly used :sunglasses:
+<br><br> <b>Lock:</b>
+    <br>* Simple and efficient synchronization for low contention scenarios.
+    <br>* Used when the code block is short and the contention is low.
+    <br>* Suitable for synchronization within a single process.
+ <br>
+<br> <b>Monitor:</b>
+    <br>* Provides more control over synchronization, as well as more advanced features such as waiting and signaling.
+    <br>* Suitable for scenarios where a thread needs to wait for a specific condition to be met.
+    <br>* Can be used for synchronization between threads in a single process.
+<br>
+<br> <b>Semaphore:</b>
+    <br>* Used to control access to a resource with limited capacity.
+    <br>* Suitable for scenarios where there are multiple threads that need to access the resource, but the resource can only handle a limited number of concurrent access.
+    <br>* Useful for scenarios where the threads need to acquire and release the resource multiple times.
+<br>
+<br> <b>SemaphoreSlim:</b>
+    <br>* Similar to Semaphore, but more lightweight and faster.
+    <br>* Suitable for scenarios with low contention where the synchronization needs to be performed frequently.
+    <br>* Useful for scenarios where the synchronization needs to be performed across multiple processes, as it is a cross-process synchronization primitive.
+<br><br>
+:collision: It is important to choose the right synchronization technique for your specific use case based on factors such as thread safety, performance, resource consumption, and ease of use. These synchronization techniques helps to improve the performance and reliability of multi-threaded applications.
