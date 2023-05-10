@@ -105,7 +105,7 @@ try {
         }
        ```
      This method represents a customer thread that uses the ATM. The WaitOne() method is called to acquire a slot from the semaphore. If all three slots are already taken,      the thread will wait until one becomes available. Once the slot is acquired, the thread will simulate the customer using the ATM by sleeping for 1 second, and then          release the slot by calling the Release() method.<br>
-  iv. The program ensures that all customer threads finish using the ATMs before it terminates, by calling the `Join()` method on each thread. Finally, the program outputs       a message indicating that all customers have finished using the ATMs, and waits for user input before exiting.
+  4. The program ensures that all customer threads finish using the ATMs before it terminates, by calling the `Join()` method on each thread. Finally, the program outputs       a message indicating that all customers have finished using the ATMs, and waits for user input before exiting.
 
 ### SemaphoreSlim class :vertical_traffic_light:
 
