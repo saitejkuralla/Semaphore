@@ -1,8 +1,0 @@
-C:\Users\Prathima_Banda\Desktop\Training\Multi Threading\AtmAccess\bin\Debug\AtmAccess.exe.config
-C:\Users\Prathima_Banda\Desktop\Training\Multi Threading\AtmAccess\bin\Debug\AtmAccess.exe
-C:\Users\Prathima_Banda\Desktop\Training\Multi Threading\AtmAccess\bin\Debug\AtmAccess.pdb
-C:\Users\Prathima_Banda\Desktop\Training\Multi Threading\AtmAccess\obj\Debug\AtmAccess.csproj.AssemblyReference.cache
-C:\Users\Prathima_Banda\Desktop\Training\Multi Threading\AtmAccess\obj\Debug\AtmAccess.csproj.SuggestedBindingRedirects.cache
-C:\Users\Prathima_Banda\Desktop\Training\Multi Threading\AtmAccess\obj\Debug\AtmAccess.csproj.CoreCompileInputs.cache
-C:\Users\Prathima_Banda\Desktop\Training\Multi Threading\AtmAccess\obj\Debug\AtmAccess.exe
-C:\Users\Prathima_Banda\Desktop\Training\Multi Threading\AtmAccess\obj\Debug\AtmAccess.pdb
