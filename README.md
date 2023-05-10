@@ -18,7 +18,7 @@ lock (lockObject)
 }
 ```
 
-:sparkles: <b>Scenario: Bus Reservation System using Lock</b> <br>
+:sparkles: <b>Scenario: Bus Reservation System</b> <br>
 * In the Bus Reservation System, the `lock` keyword is used to protect the `AvailableTickets` variable from being accessed simultaneously by multiple threads. The lock keyword allows only one thread at a time to execute the critical section of code that accesses the AvailableTickets variable, ensuring that no two threads can access it at the same time.
 * Here how it works:
   1. The program creates a BusReservation class with a private lockObject field.
@@ -57,7 +57,7 @@ finally {
 // Signal another waiting thread to continue
 Monitor.Pulse(lockObject);
 ```
-:sparkles: <b>Scenario: To synchronize access to a shared bank account using Monitor</b> <br>
+:sparkles: <b>Scenario: To synchronize access to a shared bank account</b> <br>
 * Defined a BankAccount class with two methods, Deposit() and Withdraw(), to update the balance of the account. The methods use a Monitor to ensure that only one thread can access the account balance at a time.
 * Here how it works:
     1. The `Deposit()` method takes an integer amount and adds it to the balance. It then sends a notification to any waiting threads by calling the `Monitor.Pulse()` method.
@@ -91,10 +91,21 @@ try {
 :sparkles: <b>Scenario: To limit number of customers  who can access the ATM machines at a time</b> <br>
 * The program uses a Semaphore object to control access to the ATMs, allowing a maximum of three customers to use them at a time.
 * Here how it works:
-  1. The program creates ten threads, each representing a customer, and assigns them to use the ATMs. The Semaphore object ensures that no more than three customers can access the ATMs simultaneously, by using its `WaitOne()` and `Release()` methods to acquire and release slots.
-  2. When a customer thread starts, it tries to acquire a slot from the Semaphore object by calling `WaitOne()`. If all three slots are already taken, the thread will wait until one becomes available. Once the slot is acquired, the thread will simulate the customer using the ATM by sleeping for two seconds, and then release the slot by calling `Release()`.
-  3. The program ensures that all customer threads finish using the ATMs before it terminates, by calling the `Join()` method on each thread. Finally, the program outputs a message indicating that all customers have finished using the ATMs, and waits for user input before exiting.
-
+  1. The program creates ten threads, each representing a customer, and assigns them to use the ATMs.
+  2. `static Semaphore semaphore = new Semaphore(3, 3);`
+      <br> The Semaphore object is created with an initial count of 3 and a maximum count of 3. This means that only 3 threads can acquire the semaphore at the same time.
+  3.   ```csharp
+        static void Customer(int id)
+         {
+            semaphore.WaitOne();
+            Console.WriteLine("Customer {0} is using the ATM", id);
+            Thread.Sleep(1000);
+            Console.WriteLine("Customer {0} is done using the ATM", id);
+            semaphore.Release();
+        }
+        ```
+     This method represents a customer thread that uses the ATM. The WaitOne() method is called to acquire a slot from the semaphore. If all three slots are already taken,      the thread will wait until one becomes available. Once the slot is acquired, the thread will simulate the customer using the ATM by sleeping for 1 second, and then          release the slot by calling the Release() method.
+ 4. The program ensures that all customer threads finish using the ATMs before it terminates, by calling the `Join()` method on each thread. Finally, the program outputs       a message indicating that all customers have finished using the ATMs, and waits for user input before exiting.
 
 ### SemaphoreSlim class :vertical_traffic_light:
 
@@ -115,7 +126,8 @@ await semaphore.WaitAsync();
 
 try {
     // Code block that accesses shared resource
-} finally {
+} 
+finally {
     // Release the semaphore when the critical section is complete
     semaphore.Release();
 }
@@ -126,21 +138,53 @@ try {
 * Here's how it works:
   1. The main thread generates a list of 15 credit cards to be processed.
   2. The `ProcessCreditCards()` method is called to process the credit cards concurrently.
-  3. In `ProcessCreditCards()`, a list of asynchronous tasks is created using creditCards.Select().
-  4. Each task acquires a semaphore slot by calling `WaitAsync()`, then calls the `ProcessCard()` method to process the credit card, and finally releases the semaphore slot by calling `Release()`.
-  5. The `Task.WhenAll()` method is used to wait for all tasks to complete before displaying the elapsed time.
-  6. The `ProcessCard()` method is a simple delay task that simulates processing a credit card by waiting for 1 second.
-  7. The output displays each credit card number as it is processed and the total time taken to process all credit cards.
+  3.The program uses a SemaphoreSlim object to limit the number of concurrent tasks that can be executed. The SemaphoreSlim is initialized with a count of 3, which means       that up to three tasks can be executed concurrently. This is done to limit the number of credit cards that can be processed at the same time.
+       <br>`static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(3, 3);`
+  4. The ProcessCreditCards method uses `async/await` and a SemaphoreSlim object to ensure that no more than three tasks are executed concurrently. It creates a list of        tasks using the creditCards.Select() LINQ method, each of which calls the ProcessCard method and waits for it to complete. Each task acquires the semaphore before          calling ProcessCard using the `semaphoreSlim.WaitAsync()` method, and releases it afterward using the `semaphoreSlim.Release()` method.
+    ```csharp
+    var tasks = creditCards.Select(async card =>
+    {
+        await semaphoreSlim.WaitAsync();
+        try
+        {
+            return await ProcessCard(card);
+        }
+        finally
+        {
+            semaphoreSlim.Release();
+         }
+     }).ToList();
+
+     await Task.WhenAll(tasks);
+    ```
+  7. The `Task.WhenAll()` method is used to wait for all tasks to complete before displaying the elapsed time.
+  8. The `ProcessCard()` method is a simple delay task that simulates processing a credit card by waiting for 1 second.
+  9. The output displays each credit card number as it is processed and the total time taken to process all credit cards.
   <br>
-:sparkles: <b>Scenario:Limiting Concurrent Database Connections</b><br>
-* In this example, we'll use SemaphoreSlim to limit the number of concurrent database connections that can be established at once. This helps prevent overloading the database server and ensures that all queries are executed efficiently.
+:sparkles: <b>Scenario:Limiting Multiple Services</b>
+* In this example, we'll use a SemaphoreSlim is used to limit the number of concurrent service calls. 
 * Here's how it works:
-  1. The semaphore is created with an initial count of 5, which means up to 5 tasks can acquire it simultaneously.
-  2. When a task calls  WaitAsync()`, it waits until there is a free connection available.
-  3. Once a connection is acquired, the task executes the SQL query, releases the connection with `Release()`, and then exits.
-  4. The code uses `Task.WhenAll()` to execute multiple tasks concurrently and wait for them to complete before displaying the results.
-  5. Finally, the elapsed time is displayed using a Stopwatch object.
-  
+  1. The code creates a list of six tasks, each of which represents a service that needs to be executed. Each task waits for the semaphore to be available using the             `WaitAsync` method before running its respective service. Once the service completes, the semaphore is released using the Release method, allowing other waiting tasks        to proceed.
+  2. The program uses a SemaphoreSlim object to limit the number of concurrent tasks that can be executed. The SemaphoreSlim is initialized with a count of 2, which means       that up to two tasks can be executed concurrently. This is done to limit the number of credit cards that can be processed at the same time.
+       `static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(2,2);`
+  3.  ```csharp
+      tasks.Add(Task.Run(async () =>
+      {
+         await semaphoreSlim.WaitAsync(); // Wait for semaphore to be available
+         try
+         {
+             await Service();
+         }
+         finally
+         {
+             semaphoreSlim.Release(1); // Release semaphore
+          }
+       }));
+         ```
+     The `WaitAsync()` method is called on the semaphore to acquire a lock on the resource, which blocks the execution of the task until the semaphore becomes available.        Once the lock is acquired, the task runs the Service() method, which simulates the processing of a service by delaying for 1000 milliseconds and then printing a            message to the console.<br>
+  iv. Finally, the `Release()` method is called on the semaphore to release the lock on the resource, allowing other tasks to acquire the semaphore and access the                 service. The finally block ensures that the semaphore is released even if an exception occurs while executing the service.
+     
+<hr>
 :question: <b>Now we may get a doubt that when to use these methods in which scenarios?</b> :exploding_head:
 <br>So here are some common scenarios where each synchronization method is commonly used :sunglasses:
 <br><br> <b>Lock:</b>
