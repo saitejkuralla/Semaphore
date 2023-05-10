@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SemaphoreSlim_project
+namespace LimitingCreditCard
 {
     internal class Program
     { //Allowing Maximum 3 tasks to be executed at a time
@@ -59,6 +58,8 @@ namespace SemaphoreSlim_project
             Console.WriteLine($"Credit Card Number: {creditCard.CardNumber} Processed");
             return message;
         }
+
+
     }
     public class CreditCard
     {
@@ -71,7 +72,7 @@ namespace SemaphoreSlim_project
             {
                 CreditCard card = new CreditCard()
                 {
-                    CardNumber = "10000000" + i,
+                    CardNumber = "10000" + i,
                     Name = "CreditCard-" + i
                 };
                 creditCards.Add(card);

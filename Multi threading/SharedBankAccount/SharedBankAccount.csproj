@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{797AFEB0-B2A7-4581-B1D4-147C352F8D4E}</ProjectGuid>
+    <ProjectGuid>{73B8AAEC-F7CF-4CAD-BF88-20EA89303B06}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>SemaphoreSlim_project</RootNamespace>
-    <AssemblyName>SemaphoreSlim_project</AssemblyName>
+    <RootNamespace>SharedBankAccount</RootNamespace>
+    <AssemblyName>SharedBankAccount</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

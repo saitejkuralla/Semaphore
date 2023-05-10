@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SemaphoreSlim_project2")]
+[assembly: AssemblyTitle("AtmAccess")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SemaphoreSlim_project2")]
+[assembly: AssemblyProduct("AtmAccess")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("09a77af3-c868-4ec3-9e01-aa685f9fdbaf")]
+[assembly: Guid("cabceb33-abd5-4318-bd9e-95f54022c60e")]
 
 // Version information for an assembly consists of the following four values:
 //

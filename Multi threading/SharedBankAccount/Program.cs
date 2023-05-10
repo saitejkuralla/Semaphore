@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace MonitorExample
+namespace SharedBankAccount
 {
     public class BankAccount
     {

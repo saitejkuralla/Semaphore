@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ADAC064D-6105-41DF-9747-E3FBE7F79B78}</ProjectGuid>
+    <ProjectGuid>{966B3F4E-B2B1-48D3-B76C-BDD9C8983FEE}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Monitor_project</RootNamespace>
-    <AssemblyName>Monitor_project</AssemblyName>
+    <RootNamespace>BusReservationSystem</RootNamespace>
+    <AssemblyName>BusReservationSystem</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

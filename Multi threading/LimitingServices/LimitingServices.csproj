@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CA28C25C-FEC2-42AE-841F-D0E2A1B7FEFA}</ProjectGuid>
+    <ProjectGuid>{E011A661-098E-43F0-AF7E-0086BC89C1A2}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Locks</RootNamespace>
-    <AssemblyName>Locks</AssemblyName>
+    <RootNamespace>LimitingServices</RootNamespace>
+    <AssemblyName>LimitingServices</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Semaphore_project")]
+[assembly: AssemblyTitle("LimitingServices")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Semaphore_project")]
+[assembly: AssemblyProduct("LimitingServices")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("653f7c51-6d64-425f-8398-58d09797366f")]
+[assembly: Guid("e011a661-098e-43f0-af7e-0086bc89c1a2")]
 
 // Version information for an assembly consists of the following four values:
 //
