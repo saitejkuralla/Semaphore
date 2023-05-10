@@ -1,23 +1,25 @@
 ## Thread Synchronization Methods in C#
 Hey there! :wave: 
 
-When multiple threads access shared resources simultaneously, it can lead to race conditions and unexpected behavior. To prevent this, thread synchronization is necessary. Here are some common thread synchronization methods in C#:
+When multiple threads access shared resources simultaneously, it can lead to race conditions and unexpected behavior. To prevent this, thread synchronization is necessary. Here are some common thread synchronization methods in C# with their real time examples:
+
+- [Lock Statement](#lock-statement-closed_lock_with_key) : [Bus Reservation System](https://github.com/saitejkuralla/Semaphore/tree/main/Multi%20threading/BusReservationSystem)
+- [Monitor class](#monitor-class-eyes) : [Shared Bank Account](https://github.com/saitejkuralla/Semaphore/tree/main/Multi%20threading/SharedBankAccount)
+- [Semaphore class](#semaphore-class-traffic_light) : [Atm Access](https://github.com/saitejkuralla/Semaphore/tree/main/Multi%20threading/AtmAccess)
+- [SemaphoreSlim class](#semaphoreslim-class-vertical_traffic_light) : [Limiting Credit cards](https://github.com/saitejkuralla/Semaphore/tree/main/Multi%20threading/LimitingCreditCard) , [Limiting Services](https://github.com/saitejkuralla/Semaphore/tree/main/Multi%20threading/LimitingServices)
 
 ### Lock Statement :closed_lock_with_key:
 
 * The `lock` statement is a simple and easy-to-use synchronization mechanism that ensures only one thread at a time can access a shared resource.
 * It creates a mutual exclusion lock on the specified lockObject, ensuring that only one thread at a time can execute the code block within the lock. 
 * If another thread attempts to enter the lock statement while it is already held by another thread, it will block until the lock is released.
-
 <b>Syntax:</b>
-
 ```csharp
 lock (lockObject)
 {
     // Code block that accesses shared resource
 }
 ```
-
 :sparkles: <b>Scenario: Bus Reservation System</b> <br>
 * In the Bus Reservation System, the `lock` keyword is used to protect the `AvailableTickets` variable from being accessed simultaneously by multiple threads. The lock keyword allows only one thread at a time to execute the critical section of code that accesses the AvailableTickets variable, ensuring that no two threads can access it at the same time.
 * Here how it works:
