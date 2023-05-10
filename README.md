@@ -103,9 +103,9 @@ try {
             Console.WriteLine("Customer {0} is done using the ATM", id);
             semaphore.Release();
         }
-        ```
-     This method represents a customer thread that uses the ATM. The WaitOne() method is called to acquire a slot from the semaphore. If all three slots are already taken,      the thread will wait until one becomes available. Once the slot is acquired, the thread will simulate the customer using the ATM by sleeping for 1 second, and then          release the slot by calling the Release() method.
- 4. The program ensures that all customer threads finish using the ATMs before it terminates, by calling the `Join()` method on each thread. Finally, the program outputs       a message indicating that all customers have finished using the ATMs, and waits for user input before exiting.
+       ```
+     This method represents a customer thread that uses the ATM. The WaitOne() method is called to acquire a slot from the semaphore. If all three slots are already taken,      the thread will wait until one becomes available. Once the slot is acquired, the thread will simulate the customer using the ATM by sleeping for 1 second, and then          release the slot by calling the Release() method.<br>
+  iv. The program ensures that all customer threads finish using the ATMs before it terminates, by calling the `Join()` method on each thread. Finally, the program outputs       a message indicating that all customers have finished using the ATMs, and waits for user input before exiting.
 
 ### SemaphoreSlim class :vertical_traffic_light:
 
@@ -157,9 +157,9 @@ finally {
 
      await Task.WhenAll(tasks);
     ```
-  7. The `Task.WhenAll()` method is used to wait for all tasks to complete before displaying the elapsed time.
-  8. The `ProcessCard()` method is a simple delay task that simulates processing a credit card by waiting for 1 second.
-  9. The output displays each credit card number as it is processed and the total time taken to process all credit cards.
+  5. The `Task.WhenAll()` method is used to wait for all tasks to complete before displaying the elapsed time.
+  6. The `ProcessCard()` method is a simple delay task that simulates processing a credit card by waiting for 1 second.
+  7. The output displays each credit card number as it is processed and the total time taken to process all credit cards.
   <br>
 :sparkles: <b>Scenario:Limiting Multiple Services</b>
 * In this example, we'll use a SemaphoreSlim is used to limit the number of concurrent service calls. 
@@ -180,7 +180,7 @@ finally {
              semaphoreSlim.Release(1); // Release semaphore
           }
        }));
-         ```
+          ```
      The `WaitAsync()` method is called on the semaphore to acquire a lock on the resource, which blocks the execution of the task until the semaphore becomes available.        Once the lock is acquired, the task runs the Service() method, which simulates the processing of a service by delaying for 1000 milliseconds and then printing a            message to the console.<br>
   iv. Finally, the `Release()` method is called on the semaphore to release the lock on the resource, allowing other tasks to acquire the semaphore and access the                 service. The finally block ensures that the semaphore is released even if an exception occurs while executing the service.
      
